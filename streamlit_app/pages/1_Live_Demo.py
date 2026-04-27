@@ -3,8 +3,9 @@ import os
 
 import streamlit as st
 import tensorflow as tf
-from utils.image_processing import load_and_preprocess_image
 from utils.gradcam import make_gradcam_heatmap, superimpose_heatmap
+from utils.image_processing import load_and_preprocess_image
+from utils.model_weights import ensure_best_model_path
 from utils.sidebar import render_sidebar
 from utils.ui_style import apply_theme
 
@@ -15,20 +16,16 @@ apply_theme()
 
 @st.cache_resource
 def load_model() -> tf.keras.Model:
-    """Load the trained Keras model used for inference."""
+    """Load the trained Keras model (download from GitHub Release if missing)."""
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    model_path = os.path.join(base_dir, "models", "best_cropped_finetuned.keras")
-    if not os.path.exists(model_path):
-        raise FileNotFoundError(
-            "Model file not found at streamlit_app/models/best_cropped_finetuned.keras."
-        )
+    model_path = ensure_best_model_path(base_dir)
     return tf.keras.models.load_model(model_path)
 
 
 try:
     model = load_model()
-except FileNotFoundError as error:
-    st.error(str(error))
+except Exception as error:
+    st.error(f"Could not load the model: {error}")
     st.stop()
 
 render_sidebar()
