@@ -33,7 +33,7 @@ streamlit run streamlit_app/Home.py
 ## Required Runtime Assets
 
 The app expects these files at runtime:
-- `streamlit_app/models/best_cropped_finetuned.keras`
+- `streamlit_app/models/best_cropped_finetuned.keras (https://github.com/arbutler2003/Pneuomonia-Detection-CNN/releases/tag/v1.0.0)`
 - `streamlit_app/data/live_test_pneumonia.png` (optional but used as default sample)
 - `streamlit_app/data/clever_hans_example.png` (optional display image on home page)
 - `streamlit_app/data/evaluation_results_gemini_evaluation_results.jsonl`
