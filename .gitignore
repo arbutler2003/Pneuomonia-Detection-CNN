@@ -1,0 +1,38 @@
+.DS_Store
+Thumbs.db
+
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Virtual environments and local env files
+.env
+.venv/
+venv/
+env/
+
+# Jupyter and notebook artifacts
+*.nbconvert.ipynb
+
+# Streamlit and editor state
+.streamlit/secrets.toml
+.vscode/
+.idea/
+
+# ML model and data artifacts (local-only)
+streamlit_app/models/
+data/
+datasets/
+artifacts/
+outputs/
+*.h5
+*.keras
+*.ckpt
