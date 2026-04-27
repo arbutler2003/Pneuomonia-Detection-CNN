@@ -58,7 +58,7 @@ def render_confusion_matrix(matrix: np.ndarray, cmap: str) -> None:
     ax.set_ylabel("Actual Label", fontsize=9)
     ax.tick_params(axis="both", labelsize=8)
     plt.tight_layout()
-    st.pyplot(fig, use_container_width=True)
+    st.pyplot(fig, width="stretch")
     plt.close(fig)
 
 st.set_page_config(page_title="Architectural Benchmark", layout="wide")
@@ -87,7 +87,7 @@ metrics_data = {
 }
 
 df = pd.DataFrame(metrics_data)
-st.dataframe(df.set_index("Metric"), use_container_width=True)
+st.dataframe(df.set_index("Metric"), width="stretch")
 
 st.write("")
 col1, col2, col3 = st.columns(3, gap="medium")
