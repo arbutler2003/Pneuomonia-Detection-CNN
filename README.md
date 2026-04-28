@@ -1,5 +1,5 @@
 # Automated Pneumonia Detection and Architectural Benchmark
-**This application is live on Streamlit's community cloud at https://pneuomonia-detection-cnn.streamlit.app/**
+**This application is live on Streamlit's community cloud at https://pneumonia-detection-cnn-capstone.streamlit.app/**
 
 This project presents an end-to-end workflow for pediatric pneumonia screening and compares three AI approaches:
 - Custom fine-tuned CNN (ResNet50 backbone)
