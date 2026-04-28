@@ -1,46 +1,21 @@
 """Fetch fine-tuned Keras weights from a GitHub Release if missing under streamlit_app/models/."""
 
-import json
 import os
 import urllib.error
 import urllib.request
 
 OWNER, REPO, TAG = "arbutler2003", "Pneuomonia-Detection-CNN", "v1.0.0"
 MODEL_NAME = "best_cropped_finetuned.keras"
+MODEL_URL = f"https://github.com/{OWNER}/{REPO}/releases/download/{TAG}/{MODEL_NAME}"
 _USER_AGENT = "pneumonia-detection-streamlit"
 _CHUNK = 4 * 1024 * 1024
 
 
-def _open(url: str, timeout: int, *, github_api: bool = False):
+def _open(url: str, timeout: int):
     headers = {"User-Agent": _USER_AGENT}
-    if github_api:
-        headers["Accept"] = "application/vnd.github+json"
     return urllib.request.urlopen(
         urllib.request.Request(url, headers=headers), timeout=timeout
     )
-
-
-def _release_keras_download_url() -> str:
-    api = f"https://api.github.com/repos/{OWNER}/{REPO}/releases/tags/{TAG}"
-    try:
-        with _open(api, 60, github_api=True) as resp:
-            assets = json.load(resp).get("assets", [])
-    except urllib.error.HTTPError as exc:
-        raise RuntimeError(f"Could not read GitHub release {TAG}: HTTP {exc.code}") from exc
-
-    pairs = [
-        (n, u)
-        for a in assets
-        for n, u in [(a.get("name") or "", a.get("browser_download_url"))]
-        if n.endswith(".keras") and u
-    ]
-    if not pairs:
-        raise FileNotFoundError(f"No .keras asset on release {TAG}.")
-
-    for name, url in pairs:
-        if name == MODEL_NAME:
-            return url
-    return pairs[0][1]
 
 
 def _download(url: str, dest: str) -> None:
@@ -55,6 +30,10 @@ def _download(url: str, dest: str) -> None:
                     break
                 out.write(chunk)
         os.replace(tmp, dest)
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError(
+            f"Could not download model from release asset URL: HTTP {exc.code}"
+        ) from exc
     except BaseException:
         if os.path.exists(tmp):
             try:
@@ -71,5 +50,5 @@ def ensure_best_model_path(streamlit_app_dir: str) -> str:
     path = os.path.join(models_dir, MODEL_NAME)
     if os.path.isfile(path) and os.path.getsize(path) > 0:
         return path
-    _download(_release_keras_download_url(), path)
+    _download(MODEL_URL, path)
     return path
