@@ -82,7 +82,7 @@ st.write("")
 metrics_data = {
     "Metric": ["Accuracy", "Recall (Sensitivity)", "Precision", "AUC"],
     "Custom CNN (Fine-Tuned)": ["91.99%", "98.46%", "89.72%", "0.9634"],
-    "Vertex AI (AutoML)": ["98.28%", "98.28%", "98.28%", "0.9880"],
+    "Vertex AI (AutoML)": ["97.77%", "98.97%", "97.47%", "0.9880"],
     "Gemini API (2.5 Flash)": ["71.64%", "84.92%", "66.75%", "0.7535"],
 }
 
@@ -111,10 +111,11 @@ with col2:
         render_confusion_matrix(MATRIX_VALUES["vertex_ai"], "Blues")
         st.caption("Vertex AI Matrix")
         st.markdown(
-            "**Key Finding (Optimization):** The AutoML model perfectly balanced "
-            "the precision-recall tradeoff (98.28%), virtually eliminating False "
-            "Positives and representing the gold standard for raw classification "
-            "power."
+            "**Key Finding (Optimization):** The AutoML model delivered elite "
+            "production metrics by correctly prioritizing diagnostic safety. "
+            "Achieving a near-perfect 98.97% Recall alongside a 97.47% Precision, "
+            "it aggressively minimizes False Negatives while representing the gold "
+            "standard for out-of-the-box accuracy."
         )
 
 with col3:
