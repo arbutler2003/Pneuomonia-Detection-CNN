@@ -111,8 +111,7 @@ with col2:
         render_confusion_matrix(MATRIX_VALUES["vertex_ai"], "Blues")
         st.caption("Vertex AI Matrix")
         st.markdown(
-            "**Key Finding (Optimization):** The AutoML model delivered elite "
-            "production metrics by correctly prioritizing diagnostic safety. "
+            "**Key Finding (Optimization):** "
             "Achieving a near-perfect 98.97% Recall alongside a 97.47% Precision, "
             "it aggressively minimizes False Negatives while representing the gold "
             "standard for out-of-the-box accuracy."
